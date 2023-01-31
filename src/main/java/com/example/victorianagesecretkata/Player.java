@@ -3,11 +3,12 @@ package com.example.victorianagesecretkata;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.victorianagesecretkata.Secret.emptySecret;
+
 public class Player {
 
     private final String name;
-    private String oldSecret = "";
-    private String secret = "";
+    private final Secret secret = emptySecret();
     private final List<Player> propagation = new ArrayList<>();
     private final List<Player> friends = new ArrayList<>();
 
@@ -24,37 +25,31 @@ public class Player {
     }
 
     public void addSecret(String secret) {
-        if(oldSecret.equals("")) {
-            oldSecret = secret;
-        }
-        this.secret = secret;
+        this.secret.change(secret);
         this.propagation.clear();
     }
 
     public String getSecret() {
-        return secret;
+        return secret.value();
     }
 
     public void propagate() {
-        if(oldSecret.equals(secret)){
+        boolean propagate = secret.propagate();
+        if(propagate){
             for (Player it : friends) {
                 if (!propagation.contains(it)) {
-                    it.addSecret(secret);
+                    it.addSecret(secret.value());
                     propagation.add(it);
                     break;
                 }
             }
             if(propagation.size() == friends.size()) {
-                secret = "";
-                oldSecret = "";
+                secret.reset();
             }
-        }
-        else {
-            oldSecret = secret;
         }
     }
 
     public boolean hasSecret() {
-        return !secret.equals("");
+        return secret.isNotEmpty();
     }
 }
