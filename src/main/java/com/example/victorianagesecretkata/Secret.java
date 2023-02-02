@@ -24,7 +24,7 @@ public class Secret {
         return secret;
     }
 
-    public boolean propagate() {
+    public boolean isToPropagate() {
         boolean equals = oldSecret.equals(secret);
         if(!equals) {
             oldSecret = secret;

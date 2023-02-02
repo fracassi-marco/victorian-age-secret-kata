@@ -8,28 +8,27 @@ public class Kata {
 
     private final List<Player> players = new ArrayList<>();
 
-    public void talksWith(String player1Name, String player2Name) {
+    public void talksWith(Player player1Name, Player player2Name) {
         Player player1 = findOrCreatePlayer(player1Name);
         Player player2 = findOrCreatePlayer(player2Name);
         player1.addFriend(player2);
     }
 
-    public void secret(String player, String secret) {
+    public void secret(Player player, String secret) {
         findOrCreatePlayer(player).addSecret(secret);
     }
 
-    private Player findOrCreatePlayer(String player) {
+    private Player findOrCreatePlayer(Player player) {
         Optional<Player> first = players.stream().filter(it -> it.is(player)).findFirst();
         if(first.isEmpty()) {
-            Player player1 = new Player(player);
-            players.add(player1);
-            return player1;
+            players.add(player);
+            return player;
         }
 
         return first.get();
     }
 
-    public String ask(String player) {
+    public String ask(Player player) {
         return findOrCreatePlayer(player).getSecret();
     }
 

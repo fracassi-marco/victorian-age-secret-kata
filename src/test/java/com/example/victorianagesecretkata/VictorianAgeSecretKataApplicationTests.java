@@ -9,32 +9,39 @@ class VictorianAgeSecretKataApplicationTests {
 
     @Test
     void askSecretToPlayerWithSecret() {
-        kata.talksWith("Mr. Blue", "Mr. Pink");
-        kata.secret("Mr. Blue", "Gossip1");
-        assertThat(kata.ask("Mr. Blue")).isEqualTo("Gossip1");
+        Player mrBlue = new Player("Mr. Blue", new OneToOneRelations());
+        Player mrPink = new Player("Mr. Pink", new OneToOneRelations());
+        kata.talksWith(mrBlue, mrPink);
+        kata.secret(mrBlue, "Gossip1");
+        assertThat(kata.ask(mrBlue)).isEqualTo("Gossip1");
     }
 
     @Test
     void propagateSecret() {
-        kata.talksWith("Mr. Blue", "Mr. Pink");
-        kata.secret("Mr. Blue", "Gossip1");
+        Player mrBlue = new Player("Mr. Blue", new OneToOneRelations());
+        Player mrPink = new Player("Mr. Pink", new OneToOneRelations());
+        kata.talksWith(mrBlue, mrPink);
+        kata.secret(mrBlue, "Gossip1");
         kata.propagate();
-        assertThat(kata.ask("Mr. Pink")).isEqualTo("Gossip1");
-        assertThat(kata.ask("Mr. Blue")).isEqualTo("");
+        assertThat(kata.ask(mrPink)).isEqualTo("Gossip1");
+        assertThat(kata.ask(mrBlue)).isEqualTo("");
     }
 
     @Test
     void propagateToFirstFriendAndLoseSecretWhenIsPropagatedToAllFriends() {
-        kata.talksWith("Mr. Blue", "Mr. Pink");
-        kata.secret("Mr. Blue", "Gossip1");
+        Player mrBlue = new Player("Mr. Blue", new OneToOneRelations());
+        Player mrPink = new Player("Mr. Pink", new OneToOneRelations());
+        Player mrBrown = new Player("Mr. Brown", new OneToOneRelations());
+        kata.talksWith(mrBlue, mrPink);
+        kata.secret(mrBlue, "Gossip1");
         kata.propagate();
 
-        kata.talksWith("Mr. Blue", "Mr. Brown");
-        kata.secret("Mr. Blue", "Gossip2");
+        kata.talksWith(mrBlue, mrBrown);
+        kata.secret(mrBlue, "Gossip2");
         kata.propagate();
 
-        assertThat(kata.ask("Mr. Pink")).isEqualTo("Gossip2");
-        assertThat(kata.ask("Mr. Brown")).isEqualTo("");
-        assertThat(kata.ask("Mr. Blue")).isEqualTo("Gossip2");
+        assertThat(kata.ask(mrPink)).isEqualTo("Gossip2");
+        assertThat(kata.ask(mrBrown)).isEqualTo("");
+        assertThat(kata.ask(mrBlue)).isEqualTo("Gossip2");
     }
 }
