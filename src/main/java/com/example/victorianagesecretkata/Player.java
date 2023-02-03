@@ -24,7 +24,6 @@ public class Player {
 
     public void addSecret(String secret) {
         this.secret.change(secret);
-        relations.clear();
     }
 
     public String getSecret() {
@@ -32,11 +31,10 @@ public class Player {
     }
 
     public void propagate() {
-        if(secret.isToPropagate()){
-            relations.talk(secret.value());
-            if(relations.talkedWithAll()) {
-                secret.reset();
-            }
+        relations.talk(secret.value());
+        if(relations.talkedWithAll()) {
+            secret.reset();
+            relations.clear();
         }
     }
 

@@ -1,6 +1,5 @@
 package com.example.victorianagesecretkata;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -61,7 +60,6 @@ class VictorianAgeSecretKataApplicationTests {
     }
 
     @Test
-    @Disabled
     void doctor() {
         Player drBlack = new Player("Dr.Black", new OneToOneRelations());
         Player mrBlue = new Player("Mr. Blue", new OneToOneRelations());

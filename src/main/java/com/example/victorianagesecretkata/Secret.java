@@ -1,9 +1,12 @@
 package com.example.victorianagesecretkata;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Secret {
 
+    private final Queue<String> queue = new LinkedList<>();
     private String secret;
-    private String oldSecret = "";
 
     public Secret(String secret) {
         this.secret = secret;
@@ -14,27 +17,21 @@ public class Secret {
     }
 
     public void change(String secret) {
-        if(oldSecret.equals("")) {
-            oldSecret = secret;
+        queue.add(secret);
+        if(this.secret.equals("")) {
+            this.secret = queue.poll();
         }
-        this.secret = secret;
     }
 
     public String value() {
         return secret;
     }
 
-    public boolean isToPropagate() {
-        boolean equals = oldSecret.equals(secret);
-        if(!equals) {
-            oldSecret = secret;
-        }
-        return equals;
-    }
-
     public void reset() {
-        secret = "";
-        oldSecret = "";
+        if(queue.isEmpty())
+            secret = "";
+        else
+            secret = queue.poll();
     }
 
     public boolean isNotEmpty() {
