@@ -60,7 +60,7 @@ class VictorianAgeSecretKataApplicationTests {
     }
 
     @Test
-    void doctor() {
+    void multiSecret() {
         Player drBlack = new Player("Dr.Black", new OneToOneRelations());
         Player mrBlue = new Player("Mr. Blue", new OneToOneRelations());
         Player mrPink = new Player("Mr. Pink", new OneToOneRelations());
@@ -76,4 +76,16 @@ class VictorianAgeSecretKataApplicationTests {
         kata.propagate();
         assertThat(kata.ask(mrBlue)).isEqualTo("Gossip7");
     }
+
+    @Test
+    void keepSecret() {
+        Player sirGrey = new Player("Sir Grey", new NullRelations());
+        Player drBlack = new Player("Dr. Black", new OneToOneRelations());
+        kata.talksWith(sirGrey, drBlack);
+        kata.secret(sirGrey, "Gossip8");
+        kata.propagate();
+        assertThat(kata.ask(sirGrey)).isEqualTo("Gossip8");
+        assertThat(kata.ask(drBlack)).isEqualTo("");
+    }
+
 }
