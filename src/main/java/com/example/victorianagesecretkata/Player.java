@@ -31,11 +31,8 @@ public class Player {
     }
 
     public void propagate() {
-        relations.talk(secret.value());
-        if(relations.talkedWithAll()) {
-            secret.reset();
-            relations.clear();
-        }
+        relations.talk(secret);
+
     }
 
     public boolean hasSecret() {

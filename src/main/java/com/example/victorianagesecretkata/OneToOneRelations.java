@@ -16,13 +16,17 @@ public class OneToOneRelations  implements Relations {
         propagation.clear();
     }
 
-    public void talk(String secret) {
+    public void talk(Secret secret) {
         for (Player it : friends) {
             if (!propagation.contains(it)) {
-                it.addSecret(secret);
+                it.addSecret(secret.value());
                 propagation.add(it);
                 break;
             }
+        }
+        if(talkedWithAll()) {
+            clear();
+            secret.reset();
         }
     }
 
