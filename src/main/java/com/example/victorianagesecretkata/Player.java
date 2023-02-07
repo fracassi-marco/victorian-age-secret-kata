@@ -1,12 +1,9 @@
 package com.example.victorianagesecretkata;
 
-
-import static com.example.victorianagesecretkata.Secret.emptySecret;
-
 public class Player {
 
     private final String name;
-    private final Secret secret = emptySecret();
+    private final Secrets secrets = new Secrets();
     private final Relations relations;
 
     public Player(String name, Relations relations) {
@@ -22,20 +19,19 @@ public class Player {
         return name.equals(player.name);
     }
 
-    public void addSecret(String secret) {
-        this.secret.change(secret);
+    public void addSecret(Secret secret) {
+        this.secrets.change(secret);
     }
 
-    public String getSecret() {
-        return secret.value();
+    public Secret getSecret() {
+        return secrets.current();
     }
 
     public void propagate() {
-        relations.talk(secret);
-
+        relations.talk(secrets);
     }
 
     public boolean hasSecret() {
-        return secret.isNotEmpty();
+        return secrets.isNotEmpty();
     }
 }

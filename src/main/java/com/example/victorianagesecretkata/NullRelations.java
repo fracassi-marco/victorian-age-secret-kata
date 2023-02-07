@@ -2,7 +2,7 @@ package com.example.victorianagesecretkata;
 
 public class NullRelations implements Relations {
     @Override
-    public void talk(Secret secret) {
+    public void talk(Secrets secrets) {
     }
 
     @Override

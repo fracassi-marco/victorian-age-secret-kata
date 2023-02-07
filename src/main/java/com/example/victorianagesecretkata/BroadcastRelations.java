@@ -8,9 +8,9 @@ public class BroadcastRelations implements Relations {
     private final List<Player> friends = new ArrayList<>();
 
     @Override
-    public void talk(Secret secret) {
-        friends.forEach(it -> it.addSecret(secret.value()));
-        secret.reset();
+    public void talk(Secrets secrets) {
+        friends.forEach(it -> it.addSecret(secrets.current()));
+        secrets.reset();
     }
 
     @Override

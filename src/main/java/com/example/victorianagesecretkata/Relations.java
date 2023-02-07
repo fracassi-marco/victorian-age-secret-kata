@@ -1,6 +1,6 @@
 package com.example.victorianagesecretkata;
 
 public interface Relations {
-    void talk(Secret secret);
+    void talk(Secrets secrets);
     void addFriend(Player friend);
 }

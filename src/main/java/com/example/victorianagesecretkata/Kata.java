@@ -15,7 +15,7 @@ public class Kata {
     }
 
     public void secret(Player player, String secret) {
-        findOrCreatePlayer(player).addSecret(secret);
+        findOrCreatePlayer(player).addSecret(new Secret(secret));
     }
 
     private Player findOrCreatePlayer(Player player) {
@@ -29,7 +29,7 @@ public class Kata {
     }
 
     public String ask(Player player) {
-        return findOrCreatePlayer(player).getSecret();
+        return findOrCreatePlayer(player).getSecret().value();
     }
 
     public void propagate() {
